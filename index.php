@@ -1,11 +1,26 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-include 'VerifyEmail.php';
-$ve = new hbattat\VerifyEmail('yahoo.com', 'hitman_codename408@yahoo.com', 25);
-$ve->set_socket_timeout(3);
-$ve->set_proxy('208.80.28.208', '8080');
-var_dump($ve->verify());
-echo "<pre>";
-print_r($ve->get_debug());
-echo "</pre>";
+require_once 'VerifyEmail.php'; 
+// Initialize library class
+$mail = new VerifyEmail();
+
+// Set the timeout value on stream
+$mail->setStreamTimeoutWait(20);
+
+// Set debug output mode
+$mail->Debug= TRUE; 
+$mail->Debugoutput= 'html'; 
+
+// Set email address for SMTP request
+$mail->setEmailFrom('yogeshraghav2019@gmail.com');
+
+// Email to check
+$email = 'yogeshraghav2019@gmail.com'; 
+
+// Check if email is valid and exist
+if($mail->check($email)){ 
+    echo 'Email &lt;'.$email.'&gt; is exist!'; 
+}elseif(verifyEmail::validate($email)){ 
+    echo 'Email &lt;'.$email.'&gt; is valid, but not exist!'; 
+}else{ 
+    echo 'Email &lt;'.$email.'&gt; is not valid and not exist!'; 
+} 
